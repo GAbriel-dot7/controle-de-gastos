@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  passwordHash  String
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  categories    Category[]
+  expenses      Expense[]
+  monthClosures MonthClosure[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  userId    String
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expenses  Expense[]
+
+  @@unique([userId, name])
+}
+
+model Expense {
+  id            String        @id @default(cuid())
+  description   String
+  amount        Decimal       @db.Decimal(10, 2)
+  dueDate       DateTime      @db.Date
+  month         Int
+  year          Int
+  paymentStatus PaymentStatus @default(PENDING)
+  categoryId    String
+  userId        String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  category      Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, year, month])
+}
+
+model MonthClosure {
+  id       String   @id @default(cuid())
+  userId   String
+  month    Int
+  year     Int
+  closedAt DateTime @default(now())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, month, year])
+}

@@ -1,0 +1,84 @@
+@baseUrl = http://localhost:4000
+
+### Health
+GET {{baseUrl}}/health
+
+### Register
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Ana",
+  "email": "ana@email.com",
+  "password": "Admin123"
+}
+
+### Login
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "ana@email.com",
+  "password": "Admin123"
+}
+
+### Save token
+@token = {{login.response.body.token}}
+
+### Get current user
+GET {{baseUrl}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### List categories
+GET {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+
+### Create category
+POST {{baseUrl}}/api/categories
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Alimentação"
+}
+
+### Create expense
+POST {{baseUrl}}/api/expenses
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Mercado",
+  "amount": 320.75,
+  "dueDate": "2026-11-04",
+  "categoryId": "<category-id>",
+  "paymentStatus": "PENDING"
+}
+
+### Summary
+GET {{baseUrl}}/api/expenses/summary?month=11&year=2026
+Authorization: Bearer {{token}}
+
+### Close month
+POST {{baseUrl}}/api/months/close
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "month": 11,
+  "year": 2026
+}
+
+### Blocked expense in closed month
+POST {{baseUrl}}/api/expenses
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Conta bloqueada",
+  "amount": 10,
+  "dueDate": "2026-11-15",
+  "categoryId": "<category-id>",
+  "paymentStatus": "PENDING"
+}
