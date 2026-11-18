@@ -46,6 +46,9 @@ Este backend fornece autenticação, gerenciamento de categorias e despesas, con
 ## Regra de negócio principal
 A criação, edição e remoção de despesas em um mês encerrado por um usuário são bloqueadas com erro 409.
 
+## Testes
+Execute `npm test` para validar os schemas de autenticação, despesas e meses.
+
 ## Permissões
 - Usuário comum: pode manipular apenas seus próprios dados.
 - ADMIN: pode listar e excluir usuários.

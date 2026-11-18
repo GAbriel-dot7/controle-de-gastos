@@ -22,7 +22,7 @@ export const reopen = asyncHandler(async (req, res) => {
   const month = Number(req.params.month);
   const year = Number(req.params.year);
 
-  if (Number.isNaN(month) || Number.isNaN(year)) {
+  if (!Number.isInteger(month) || month < 1 || month > 12 || !Number.isInteger(year) || year < 2000) {
     throw new AppError(400, 'Mês e ano inválidos.');
   }
 

@@ -139,10 +139,12 @@ classDiagram
     Category --> Expense
 ```
 
-## Componentes de terceiros
-- Tailwind CSS — https://tailwindcss.com — MIT License
-- Flowbite — https://flowbite.com — MIT License
-- HyperUI — https://www.hyperui.dev — MIT License
+## Componentes e fontes
+- Tailwind CSS 4.3 — https://tailwindcss.com — MIT License
+- React 19 — https://react.dev — MIT License
+- Express 5 — https://expressjs.com — MIT License
+- Prisma 7.10 — https://www.prisma.io — Apache-2.0 License
+- Os componentes visuais, formulários, tabelas, modais e estados vazios foram desenvolvidos especificamente para este projeto com React e Tailwind CSS; o projeto não reutilizou componentes prontos externos.
 
 ## Checklist de deploy
 1. Criar banco PostgreSQL gerenciado e coletar DATABASE_URL.
@@ -186,8 +188,9 @@ classDiagram
 - Interface de despesas: `frontend/src/pages/DashboardPage.jsx` e `frontend/src/components/ExpenseTable.jsx`.
 
 ## Endereço da aplicação publicada
-- Frontend: preencher depois
-- Backend: preencher depois
+- Frontend: a preencher após o deploy na plataforma escolhida
+- Backend: a preencher após o deploy na plataforma escolhida
+- Banco de dados: PostgreSQL gerenciado ou equivalente, com `DATABASE_URL` configurada no ambiente de produção
 
 ## Roteiro do professor
 - O projeto procura resolver o problema de controle de despesas pessoais com organização por categoria e mês.

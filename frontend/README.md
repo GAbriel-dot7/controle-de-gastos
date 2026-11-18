@@ -10,10 +10,10 @@ A interface web permite cadastrar e acompanhar despesas, organizar categorias, e
 - React Router DOM
 - Axios
 
-## Componentes de terceiros
-- Flowbite – https://flowbite.com – MIT License
-- Tailwind CSS – https://tailwindcss.com – MIT License
-- HyperUI – https://www.hyperui.dev – MIT License
+## Componentes e fontes
+- Tailwind CSS 4.3 – https://tailwindcss.com – MIT License
+- React 19 – https://react.dev – MIT License
+- Os componentes da interface foram desenvolvidos para o projeto com React e Tailwind CSS; não foram reutilizados componentes prontos externos.
 
 ## Variáveis de ambiente
 | Nome | Descrição |

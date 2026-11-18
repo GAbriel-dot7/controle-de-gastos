@@ -3,14 +3,16 @@ import AppError from '../utils/AppError.js';
 import { ensureMonthIsOpen } from './monthService.js';
 
 function getMonthYearFromDate(dateValue) {
-  const date = new Date(dateValue);
+  const date = typeof dateValue === 'string'
+    ? new Date(`${dateValue.slice(0, 10)}T00:00:00.000Z`)
+    : dateValue;
   if (Number.isNaN(date.getTime())) {
     throw new AppError(400, 'Data da despesa inválida.');
   }
 
   return {
-    month: date.getMonth() + 1,
-    year: date.getFullYear(),
+    month: date.getUTCMonth() + 1,
+    year: date.getUTCFullYear(),
   };
 }
 
@@ -50,7 +52,7 @@ export async function getExpenseById(userId, expenseId) {
 
 export async function createExpense(userId, payload) {
   const { description, amount, dueDate, categoryId, paymentStatus } = payload;
-  const date = new Date(dueDate);
+  const date = new Date(`${dueDate.slice(0, 10)}T00:00:00.000Z`);
   if (Number.isNaN(date.getTime())) {
     throw new AppError(400, 'Data da despesa inválida.');
   }
@@ -101,7 +103,7 @@ export async function updateExpense(userId, expenseId, payload) {
     throw new AppError(404, 'Categoria não encontrada para este usuário.');
   }
 
-  const date = new Date(nextDueDate);
+  const date = new Date(`${nextDueDate.slice(0, 10)}T00:00:00.000Z`);
   const { month, year } = getMonthYearFromDate(date);
 
   await ensureMonthIsOpen(userId, month, year);
